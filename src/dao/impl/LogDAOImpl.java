@@ -7,13 +7,24 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.TransformerFactoryConfigurationError;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
+import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -162,8 +173,53 @@ public class LogDAOImpl implements LogDAO {
   }
 
   @Override
-  public void saveConfiguration() throws ConfigurationException {
-    //TODO
+  public void saveConfiguration(String projectName, String autoClean, String fileDirectory) throws ConfigurationException {
+    DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+    DocumentBuilder docBuilder;
+    try {
+      DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+      DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+      Document document = documentBuilder.parse("../MyLogger/Configuration/configuration.xml");
+      Node configuration = document.getElementsByTagName("configuration").item(0);
+      NamedNodeMap attribute = configuration.getAttributes();
+      NodeList nodes = configuration.getChildNodes();
+      
+      for (int i = 0; i < nodes.getLength(); i++) {
+        Node element = nodes.item(i);
+        if ("projectname".equals(element.getNodeName())) {
+          element.setTextContent(projectName);
+        }
+        if ("autoclean".equals(element.getNodeName())) {
+          element.setTextContent(autoClean);
+        }
+        if ("filedirectory".equals(element.getNodeName())) {
+          element.setTextContent(fileDirectory);
+        }
+      }
+      TransformerFactory transformerFactory = TransformerFactory.newInstance();
+      Transformer transformer = transformerFactory.newTransformer();
+      transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+      DOMSource domSource = new DOMSource(document);
+      StreamResult streamResult = new StreamResult(new File("../MyLogger/Configuration/configuration.xml"));
+      transformer.transform(domSource, streamResult);
+
+
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } catch (SAXException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } catch (ParserConfigurationException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } catch (TransformerConfigurationException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } catch (TransformerException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
   }
 
 }

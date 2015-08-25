@@ -17,5 +17,5 @@ public interface LogDAO {
   public void errorMessage(String message);
   public void fileMaker();
   public void loadConfiguration() throws ConfigurationException;
-  public void saveConfiguration() throws ConfigurationException;
+  public void saveConfiguration(String projectName, String autoClean, String fileDirectory) throws ConfigurationException;
 }

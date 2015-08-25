@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no" ?> 
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <mylogger>
    <configuration>
-	<projectname>PlatformSense</projectname> <!-- Insert the name of your project here to be shown in the log -->
-	<autoclean>true</autoclean> <!-- true for activated or false for desactivated -->
+	<projectname>Platform</projectname> <!-- Insert the name of your project here to be shown in the log -->
+	<autoclean>false</autoclean> <!-- true for activated or false for desactivated -->
 	<filedirectory>default</filedirectory> <!-- For now only default is supported -->
    </configuration>
 </mylogger>
