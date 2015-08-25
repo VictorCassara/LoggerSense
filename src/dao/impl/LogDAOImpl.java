@@ -45,9 +45,6 @@ public class LogDAOImpl implements LogDAO {
    File fileDir;
    File file;
 
-  /* (non-Javadoc)
-   * @see dao.LogDAO#message(java.lang.String)
-   */
   @Override
   public void message(String message) {
     fileMaker();
@@ -171,7 +168,7 @@ public class LogDAOImpl implements LogDAO {
       e.printStackTrace();
     }
   }
-
+  
   @Override
   public void saveConfiguration(String projectName, String autoClean, String fileDirectory) throws ConfigurationException {
     DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
@@ -205,19 +202,14 @@ public class LogDAOImpl implements LogDAO {
 
 
     } catch (IOException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     } catch (SAXException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     } catch (ParserConfigurationException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     } catch (TransformerConfigurationException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     } catch (TransformerException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
   }
