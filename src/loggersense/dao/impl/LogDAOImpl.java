@@ -1,7 +1,7 @@
 /**
  * 
  */
-package mylogger.dao.impl;
+package loggersense.dao.impl;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -21,10 +21,10 @@ import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import mylogger.dao.LogDAO;
-import mylogger.entity.Log;
-import mylogger.util.Constants;
-import mylogger.util.exception.ConfigurationException;
+import loggersense.dao.LogDAO;
+import loggersense.entity.Log;
+import loggersense.util.Constants;
+import loggersense.util.exception.ConfigurationException;
 
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;

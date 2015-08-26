@@ -1,7 +1,7 @@
 /**
  * 
  */
-package mylogger.util;
+package loggersense.util;
 
 /**
  *

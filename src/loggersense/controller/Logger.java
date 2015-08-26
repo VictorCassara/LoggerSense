@@ -1,11 +1,11 @@
 /**
  * 
  */
-package mylogger.controller;
+package loggersense.controller;
 
-import mylogger.dao.LogDAO;
-import mylogger.dao.impl.LogDAOImpl;
-import mylogger.util.exception.ConfigurationException;
+import loggersense.dao.LogDAO;
+import loggersense.dao.impl.LogDAOImpl;
+import loggersense.util.exception.ConfigurationException;
 
 /**
  *

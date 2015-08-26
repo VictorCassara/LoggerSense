@@ -1,7 +1,7 @@
 /**
  * 
  */
-package mylogger.entity;
+package loggersense.entity;
 
 import java.io.File;
 import java.time.LocalDateTime;
@@ -9,8 +9,8 @@ import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
-import mylogger.util.Constants;
-import mylogger.util.exception.ConfigurationException;
+import loggersense.util.Constants;
+import loggersense.util.exception.ConfigurationException;
 
 /**
  *

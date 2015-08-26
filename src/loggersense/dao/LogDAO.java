@@ -1,9 +1,9 @@
 /**
  * 
  */
-package mylogger.dao;
+package loggersense.dao;
 
-import mylogger.util.exception.ConfigurationException;
+import loggersense.util.exception.ConfigurationException;
 
 /**
  *

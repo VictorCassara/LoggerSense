@@ -1,7 +1,7 @@
 /**
  * 
  */
-package mylogger.util.exception;
+package loggersense.util.exception;
 
 /**
  *
