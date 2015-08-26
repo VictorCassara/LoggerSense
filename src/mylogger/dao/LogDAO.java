@@ -36,4 +36,9 @@ public interface LogDAO {
    * Save any changes the user made to the XML configuration file.
    */  
   public void saveConfiguration(String projectName, String autoClean, String fileDirectory) throws ConfigurationException;
+  
+  /**
+   * Checks if the directory exists to create it or not.
+   */
+  public void xmlFileMaker();
 }

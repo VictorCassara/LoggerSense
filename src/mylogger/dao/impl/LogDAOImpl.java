@@ -44,6 +44,8 @@ public class LogDAOImpl implements LogDAO {
    Log log = new Log();
    File fileDir;
    File file;
+   File fileXMLDir;
+   File fileXML;
 
   @Override
   public void message(String message) {
@@ -118,7 +120,12 @@ public class LogDAOImpl implements LogDAO {
 
   @Override
   public void fileMaker() {
-    fileDir = new File(log.getDir());
+    StringBuilder sbDir = new StringBuilder();
+    sbDir.append(System.getProperty("user.home"));
+    sbDir.append(File.separator);
+    sbDir.append("LoggerSense");
+    sbDir.append(File.separator);
+    fileDir = new File(sbDir.toString());
     
     if(!fileDir.exists()){
       fileDir.mkdir();
@@ -129,14 +136,16 @@ public class LogDAOImpl implements LogDAO {
     }
     
   }
+  
+  
 
   @Override
   public void loadConfiguration() throws ConfigurationException {
-    File xmlFile = new File("../MyLogger/Configuration/", "configuration.xml");
+    xmlFileMaker();
     DocumentBuilderFactory dBFactory = DocumentBuilderFactory.newInstance();
     try {
       DocumentBuilder dBuilder = dBFactory.newDocumentBuilder();
-      Document document = dBuilder.parse(xmlFile);
+      Document document = dBuilder.parse(fileXML);
       document.getDocumentElement().normalize();
       NodeList nodeList = document.getElementsByTagName("configuration");
       
@@ -174,9 +183,16 @@ public class LogDAOImpl implements LogDAO {
     DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
     DocumentBuilder docBuilder;
     try {
+      StringBuilder sbDir = new StringBuilder();
+      sbDir.append(System.getProperty("user.home"));
+      sbDir.append(File.separator);
+      sbDir.append("LoggerSense");
+      sbDir.append(File.separator);
+      sbDir.append(Constants.getXmlFile());
+      
       DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
       DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-      Document document = documentBuilder.parse("../MyLogger/Configuration/configuration.xml");
+      Document document = documentBuilder.parse(sbDir.toString());
       Node configuration = document.getElementsByTagName("configuration").item(0);
       NamedNodeMap attribute = configuration.getAttributes();
       NodeList nodes = configuration.getChildNodes();
@@ -197,7 +213,7 @@ public class LogDAOImpl implements LogDAO {
       Transformer transformer = transformerFactory.newTransformer();
       transformer.setOutputProperty(OutputKeys.INDENT, "yes");
       DOMSource domSource = new DOMSource(document);
-      StreamResult streamResult = new StreamResult(new File("../MyLogger/Configuration/configuration.xml"));
+      StreamResult streamResult = new StreamResult(new File(sbDir.toString()));
       transformer.transform(domSource, streamResult);
 
 
@@ -211,6 +227,60 @@ public class LogDAOImpl implements LogDAO {
       e.printStackTrace();
     } catch (TransformerException e) {
       e.printStackTrace();
+    }
+  }
+
+  @Override
+  public void xmlFileMaker() {
+    StringBuilder sbDir = new StringBuilder();
+    sbDir.append(System.getProperty("user.home"));
+    sbDir.append(File.separator);
+    sbDir.append("LoggerSense");
+    sbDir.append(File.separator);
+    fileXMLDir = new File(sbDir.toString());
+    
+    if(!fileXMLDir.exists()){
+      fileXMLDir.mkdir();
+      try {
+        DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+
+        Document doc = docBuilder.newDocument();
+        Element rootElement = doc.createElement("loggersense");
+        doc.appendChild(rootElement);
+
+        Element configuration = doc.createElement("configuration");
+        rootElement.appendChild(configuration);
+
+        Element projectName = doc.createElement("projectname");
+        projectName.appendChild(doc.createTextNode("MyProject"));
+        configuration.appendChild(projectName);
+
+        Element autoClean = doc.createElement("autoclean");
+        autoClean.appendChild(doc.createTextNode("true"));
+        configuration.appendChild(autoClean);
+
+        Element fileDirectory = doc.createElement("filedirectory");
+        fileDirectory.appendChild(doc.createTextNode("default"));
+        configuration.appendChild(fileDirectory);
+
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = transformerFactory.newTransformer();
+        DOMSource source = new DOMSource(doc);
+        fileXML = new File(fileXMLDir, Constants.getXmlFile());
+        StreamResult result = new StreamResult(fileXML);
+
+        transformer.transform(source, result);
+
+        } catch (ParserConfigurationException pce) {
+        pce.printStackTrace();
+        } catch (TransformerException tfe) {
+        tfe.printStackTrace();
+        }
+    }
+    
+    if(fileXMLDir.isDirectory()){
+      fileXML = new File(fileXMLDir, Constants.getXmlFile());
     }
   }
 

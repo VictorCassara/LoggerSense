@@ -31,7 +31,19 @@ public class Constants {
    */
   private static final String OK_TAG = "[OK]";
   
+  /**
+   * Variable that defines the name of the xml file.
+   */
+  private static final String XML_FILE = "configuration.xml";
   
+  /**
+   * Getter responsible for retrieving the name of the XML configuration file.
+   * @return
+   */
+  public static String getXmlFile() {
+    return XML_FILE;
+  }
+
   /**
    * Getter responsible for retrieving the ok tag that shows up inside the log file.
    * @return String containing the ok tag value (which is a constant defined by the developer)

@@ -21,7 +21,6 @@ public class Logger {
     try {
       log.loadConfiguration();
     } catch (ConfigurationException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
   }
